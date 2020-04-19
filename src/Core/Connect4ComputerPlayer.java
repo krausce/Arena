@@ -4,7 +4,7 @@ package Core;
 import java.util.ArrayList;
 import java.util.List;
 
-import UI.Connect4GUI;
+import UI.Connect4GuiInterface;
 
 import static java.lang.System.arraycopy;
 
@@ -27,14 +27,14 @@ public class Connect4ComputerPlayer implements Player {
     private static double staticBestMoveScore;
     private final String marker;
     private int numberOfMovesMade = 0;
-    private Connect4GUI.Token token;
+    private Connect4GuiInterface.Token token;
 
-    public Connect4ComputerPlayer(Connect4GUI.Token token, String marker) {
+    public Connect4ComputerPlayer(Connect4GuiInterface.Token token, String marker) {
         this.marker = marker;
         this.token = token;
     }
 
-    public Connect4ComputerPlayer(Connect4GUI.Token token, String marker, int maxDepth) {
+    public Connect4ComputerPlayer(Connect4GuiInterface.Token token, String marker, int maxDepth) {
         this(token, marker);
         setMaxDepth(maxDepth);
     }
@@ -173,7 +173,7 @@ public class Connect4ComputerPlayer implements Player {
     }
 
     @Override
-    public Connect4GUI.Token getToken() {
+    public Connect4GuiInterface.Token getToken() {
         return this.token;
     }
 

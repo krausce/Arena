@@ -174,7 +174,7 @@ class StartMenu {
             if (humanOpponent.isArmed()) {
                 Connect4GUI.playerO.setName(player2NameField.getText());
             } else {
-                Connect4GUI.playerO = new Connect4ComputerPlayer(new Connect4GUI.Token(!Connect4GUI.playerX.getToken().red),
+                Connect4GUI.playerO = new Connect4ComputerPlayer(new Connect4GuiInterface.Token(!Connect4GUI.playerX.getToken().red),
                         (Connect4GUI.playerX.getMarker().equals("X") ? "O" : "X"), maxDepth);
             }
             if (guiGame.isArmed()) {
@@ -189,7 +189,7 @@ class StartMenu {
             if (humanOpponent.isArmed()) {
                 Connect4GUI.playerO.setName(player2NameField.getText());
             } else {
-                Connect4GUI.playerO = new Connect4ComputerPlayer(new Connect4GUI.Token(!Connect4GUI.playerX.getToken().red),
+                Connect4GUI.playerO = new Connect4ComputerPlayer(new Connect4GuiInterface.Token(!Connect4GUI.playerX.getToken().red),
                         (Connect4GUI.playerX.getMarker().equals("X") ? "O" : "X"), maxDepth);
             }
             if (guiGame.isArmed()) {

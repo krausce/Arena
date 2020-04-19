@@ -4,30 +4,20 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import Core.Connect4;
-import Core.GameBoard;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import static UI.Connect4GUI.Token;
-import static UI.Connect4GUI.buildGameBoard;
-import static UI.Connect4GUI.makeRectangleHighlighter;
-import static UI.Connect4GUI.tokenSpaces;
-import static UI.Connect4ServerConstants.COLUMNS;
 import static UI.Connect4ServerConstants.CONTINUE;
 import static UI.Connect4ServerConstants.DRAW;
 import static UI.Connect4ServerConstants.HOST;
@@ -38,7 +28,6 @@ import static UI.Connect4ServerConstants.PLAYER_1_WON;
 import static UI.Connect4ServerConstants.PLAYER_2;
 import static UI.Connect4ServerConstants.PLAYER_2_TOKEN;
 import static UI.Connect4ServerConstants.PLAYER_2_WON;
-import static UI.Connect4ServerConstants.ROWS;
 
 /**
  * Connect4Client is a client application for the network distributed version of Connect 4. There will be exactly two instances of this
@@ -47,14 +36,10 @@ import static UI.Connect4ServerConstants.ROWS;
  * @author Chris Kraus
  * @version 1.0
  */
-public class Connect4Client extends Application {
+public class Connect4Client extends Application implements Connect4GuiInterface {
     private static final Logger CLIENT_LOGGER = Logger.getLogger(Connect4Client.class.getName());
-    private static final int GAME_BOARD_TILE_SIZE = 80;
-    private static final String[][] clientMockGameBoard = GameBoard.connect4Board;
-    private final Token[][] clientGameBoard = new Token[COLUMNS][ROWS];
     private final Label titleLabel = new Label();
     private final Label statusLabel = new Label();
-    private final Pane tokenBase = new Pane();
     private boolean myTurn = false;
     private String myToken = " ";
     private int columnSelected;
@@ -69,7 +54,7 @@ public class Connect4Client extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Connect4.initializeBoard(clientMockGameBoard);
+        Connect4.initializeBoard(mockGameBoard);
         BorderPane clientLayout = new BorderPane();
         clientLayout.setTop(titleLabel);
         clientLayout.setCenter(createBaseGUI());
@@ -183,18 +168,6 @@ public class Connect4Client extends Application {
         Platform.runLater(() -> placeToken(new Token(!myToken.equals("X")), otherPlayerMove));
     }
 
-    private Parent createBaseGUI() {
-        Pane gameBoardPane = new Pane();
-        gameBoardPane.getChildren().add(tokenBase);
-
-        Shape gameBoardShape = buildGameBoard();
-        gameBoardPane.getChildren().add(gameBoardShape);
-        makeColumnHighlighter();
-        gameBoardPane.getChildren().addAll(tokenSpaces);
-
-        return gameBoardPane;
-    }
-
     public void makeColumnHighlighter() {
 
         for (int x = 0; x < COLUMNS; x++) {
@@ -209,7 +182,7 @@ public class Connect4Client extends Application {
     public void mouseClickHandler(int column) {
         if (myTurn) {
             placeToken(new Token(myToken.equals(PLAYER_1_TOKEN)), column);
-            Connect4.insertToken(clientMockGameBoard, myToken, column);
+            Connect4.insertToken(mockGameBoard, myToken, column);
             myTurn = false;
             columnSelected = column;
             statusLabel.setText("Waiting for the other player to make a move.");
@@ -217,7 +190,7 @@ public class Connect4Client extends Application {
         }
     }
 
-    private void placeToken(Token token, int column) {
+    public void placeToken(Token token, int column) {
         int row = ROWS - 1;
         do {
             if (getToken(column, row).isEmpty()) {
@@ -237,18 +210,5 @@ public class Connect4Client extends Application {
         TranslateTransition animation = new TranslateTransition(Duration.seconds(0.5), token);
         animation.setToY(row * (GAME_BOARD_TILE_SIZE + 5) + ((double) GAME_BOARD_TILE_SIZE / 4));
         animation.play();
-    }
-
-    private Optional<Token> getToken(int column, int row) {
-        if (column < 0 || column >= COLUMNS
-                || row < 0 || row >= ROWS) {
-            return Optional.empty();
-        }
-
-        return Optional.ofNullable(clientGameBoard[column][row]);
-    }
-
-    private void setGameBoardCell(int column, int row, Token token) {
-        clientGameBoard[column][row] = token;
     }
 }

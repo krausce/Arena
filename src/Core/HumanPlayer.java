@@ -2,7 +2,7 @@ package Core;
 
 import java.util.Scanner;
 
-import UI.Connect4GUI;
+import UI.Connect4GuiInterface;
 
 import static java.lang.System.out;
 
@@ -15,7 +15,7 @@ public class HumanPlayer implements Player {
     private final Scanner in;
     protected int numberOfMovesMade;
     private String name;
-    private Connect4GUI.Token token;
+    private Connect4GuiInterface.Token token;
 
 
     /**
@@ -30,16 +30,16 @@ public class HumanPlayer implements Player {
         this.in = in;
     }
 
-    public HumanPlayer(String name, Connect4GUI.Token token) {
+    public HumanPlayer(String name, Connect4GuiInterface.Token token) {
         this(name, (token.red) ? "X" : "O", null);
         this.token = token;
     }
 
-    public HumanPlayer(Connect4GUI.Token token) {
+    public HumanPlayer(Connect4GuiInterface.Token token) {
         this("Default Name", token);
     }
 
-    public Connect4GUI.Token getToken() {
+    public Connect4GuiInterface.Token getToken() {
         return token;
     }
 

@@ -1,6 +1,6 @@
 package Core;
 
-import UI.Connect4GUI;
+import UI.Connect4GuiInterface;
 
 public interface Player {
     String CRLF = "\n\r";
@@ -9,7 +9,7 @@ public interface Player {
 
     void incrementNumberOfMovesMade();
 
-    Connect4GUI.Token getToken();
+    Connect4GuiInterface.Token getToken();
 
     String getName();
 
