@@ -37,7 +37,7 @@
                
 ## Screen Captures
 
-![alt text](https://github.com/krausce/Arena/blob/master/img/ServerGameStartUP.JPG)<br/>
+![alt text](https://github.com/krausce/Arena/blob/master/img/Connect4GUIStartupScreen.JPG)<br/>
 
 
 ![alt text](https://github.com/krausce/Arena/blob/master/img/Connect4GUIEndOfGame.JPG)<br/>
@@ -46,10 +46,10 @@
 ![alt text](https://github.com/krausce/Arena/blob/master/img/Connect4GUIContextSwitch.JPG)<br/>
 
 
-![alt text](https://github.com/krausce/Arena/blob/master/img/Connect4TextMainMenuContextSwitch.JPG)<br/>
-
-
 ![alt text](https://github.com/krausce/Arena/blob/master/img/Connect4TextMainMenu.JPG)<br/>
+
+
+![alt text](https://github.com/krausce/Arena/blob/master/img/Connect4TextMainMenuContextSwitch.JPG)<br/>
 
 
 ![alt text](https://github.com/krausce/Arena/blob/master/img/Connect4TextGamePlay.JPG)<br/>
