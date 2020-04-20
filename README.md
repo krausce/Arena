@@ -1,14 +1,7 @@
 ## CONNECT 4 - basic console offering
 
 1. Basic Run-Test Instructions
-   1. Import all .java source files:
-      1. Core Package - 
-         *  <em>Player.java (**Interface**)</em>
-         *  <em>Connect4.java</em>
-         *  <em>HumanPlayer.java</em>
-         *  <em>Connect4ComputerPlayer.java</em>
-      2. UI Package
-         * <em>Connect4TextConsole</em>
+   1. Import all directories or simply clone the repository.
          
    2. Compile and Run
       1. Minimum Java Version: 1.8.*
