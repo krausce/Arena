@@ -1,4 +1,4 @@
-package UI;
+package Core;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -9,8 +9,6 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Core.Connect4;
-import Core.GameBoard;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;

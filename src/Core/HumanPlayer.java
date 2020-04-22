@@ -78,6 +78,10 @@ public class HumanPlayer implements Player {
         this.numberOfMovesMade++;
     }
 
+    public static boolean makeMove(String[][] gameBoard, String marker, int move) {
+        return Connect4.insertToken(gameBoard, marker, move);
+    }
+
     /**
      * Take the human player's input and then play their move selection
      *
@@ -92,7 +96,7 @@ public class HumanPlayer implements Player {
             out.printf("%sPlayer: %s has %d moves left (Choose a column to place your marker (1 - 7)).%s",
                     CRLF, this.getName(), numberOfMovesMadeLeft, CRLF);
 
-            while (!(Connect4.insertToken(originalGameBoard, this.getMarker(), in.nextInt() - 1))) {
+            while (!(makeMove(originalGameBoard, this.getMarker(), in.nextInt() - 1))) {
                 out.printf("%sToken could not be played. Please try again.%s", CRLF,
                         CRLF);
                 Connect4.displayBoard(originalGameBoard);
