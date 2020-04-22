@@ -7,4 +7,6 @@ module Arena {
     requires org.junit.jupiter.api;
 
     opens main.UI;
+    opens main.Core;
+    opens main.style;
 }

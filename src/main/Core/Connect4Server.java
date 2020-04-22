@@ -36,7 +36,7 @@ public class Connect4Server extends Application {
     private static int sessionNumber = 1;
 
     public static void main(String[] args) {
-        launch(args);
+        launch(Connect4Server.class, args);
     }
 
     /**

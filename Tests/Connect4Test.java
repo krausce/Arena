@@ -1,5 +1,3 @@
-package Test;
-
 import main.Core.Connect4;
 import main.Core.HumanPlayer;
 import main.UI.Connect4GuiInterface;
