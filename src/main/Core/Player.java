@@ -1,6 +1,6 @@
-package Core;
+package main.Core;
 
-import UI.Connect4GuiInterface;
+import main.UI.Connect4GuiInterface;
 
 public interface Player {
     String CRLF = "\n\r";

@@ -1,6 +1,4 @@
-package UI;
-
-import Core.Connect4;
+package main.Core;
 
 public abstract class Connect4ServerConstants {
     public static final int PLAYER_1 = 1;

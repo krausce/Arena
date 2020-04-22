@@ -1,10 +1,10 @@
-package Core;
+package main.Core;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import static Core.GameBoard.checkWinCondition;
 import static java.lang.System.out;
+import static main.Core.GameBoard.checkWinCondition;
 
 public class Connect4 {
 
@@ -16,7 +16,11 @@ public class Connect4 {
     private Player player1;
     private Player player2;
     private int numberOfMovesMade = 0;
-    private Core.Player currentPlayer;
+    private main.Core.Player currentPlayer;
+
+    public Connect4() {
+        in = null;
+    }
 
     public Connect4(Scanner in) {
         this.in = in;
@@ -71,13 +75,17 @@ public class Connect4 {
 
     public static boolean isADraw(String[][] currentGameState) {
         final int row = currentGameState.length - 1;
-        for (int col = 0; col < currentGameState[0].length; col++) {
-            if (currentGameState[row][col].equals(" ")) {
-                return false;
+        try {
+            for (int col = 0; col < currentGameState[0].length; col++) {
+                if (currentGameState[row][col].equals(" ")) {
+                    return false;
+                }
             }
-        }
 
-        return true;
+            return true;
+        } catch (NullPointerException e) {
+            return false;
+        }
     }
 
     private void startGame() {
@@ -109,7 +117,7 @@ public class Connect4 {
         }
     }
 
-    private Player randomlySelectFirstPlayer() {
+    public Player randomlySelectFirstPlayer() {
         return (Math.round(Math.random()) == 0) ? player1 : player2;
     }
 
@@ -150,14 +158,23 @@ public class Connect4 {
     }
 
     public void makeMove() {
-        currentPlayer.makeMove(this.getGameBoard());
+        try {
+            currentPlayer.makeMove(this.getGameBoard());
+        } catch (IllegalArgumentException e) {
+            initializeBoard(gameBoard);
+            makeMove();
+        }
     }
 
     /**
      * @return the player instance whose turn it currently is.
      */
-    public Core.Player getCurrentPlayer() {
+    public main.Core.Player getCurrentPlayer() {
         return this.currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player newPlayer) {
+        this.currentPlayer = newPlayer;
     }
 
     /**
@@ -182,5 +199,27 @@ public class Connect4 {
         this.numberOfMovesMade++;
     }
 
+    public Player getPlayer1() {
+        return player1;
+    }
 
+    public void setPlayer1(Player player1) {
+        this.player1 = player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
+
+    public void setPlayer2(Player player2) {
+        this.player2 = player2;
+    }
+
+    public int getNumberOfMovesMade() {
+        return numberOfMovesMade;
+    }
+
+    public void setNumberOfMovesMade(int numberOfMovesMade) {
+        this.numberOfMovesMade = numberOfMovesMade;
+    }
 }

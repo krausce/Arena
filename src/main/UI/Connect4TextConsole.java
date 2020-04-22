@@ -1,10 +1,10 @@
-package UI;
+package main.UI;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import Core.Connect4;
-import Core.Menus;
+import main.Core.Connect4;
+import main.Core.Menus;
 
 import static java.lang.System.exit;
 import static java.lang.System.out;

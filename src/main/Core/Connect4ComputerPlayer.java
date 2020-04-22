@@ -1,17 +1,17 @@
-package Core;
+package main.Core;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-import UI.Connect4GuiInterface;
+import main.UI.Connect4GuiInterface;
 
 import static java.lang.System.arraycopy;
 
 @SuppressWarnings("DuplicatedCode")
 public class Connect4ComputerPlayer implements Player {
 
-    private static final String ROBOT_NAME = "Robinson Robot 2.0";
+    public static final String ROBOT_NAME = "Robinson Robot 2.0";
     private static final int[][] evaluationTable = {{3, 4, 5, 7, 5, 4, 3},
             {4, 6, 8, 10, 8, 6, 4},
             {5, 8, 11, 13, 11, 8, 5},
@@ -23,10 +23,10 @@ public class Connect4ComputerPlayer implements Player {
      * Maximum game tree depth to search at.
      */
     private static int maxDepth = 4;
-    private static int staticBestMoveColumn;
+    private static int staticBestMoveColumn = -1;
     private static double staticBestMoveScore;
     private final String marker;
-    private int numberOfMovesMade = 0;
+    private int numberOfMovesMade;
     private Connect4GuiInterface.Token token;
 
     public Connect4ComputerPlayer(Connect4GuiInterface.Token token, String marker) {
@@ -42,14 +42,6 @@ public class Connect4ComputerPlayer implements Player {
     public Connect4ComputerPlayer(String marker, int maxDepth) {
         this.marker = marker;
         setMaxDepth(maxDepth);
-    }
-
-    public static void setStaticBestMoveColumn(int staticBestMoveColumn) {
-        Connect4ComputerPlayer.staticBestMoveColumn = staticBestMoveColumn;
-    }
-
-    public static void setMaxDepth(int maxDepth) {
-        Connect4ComputerPlayer.maxDepth = maxDepth;
     }
 
     public static void setStaticstaticBestMoveScore(double staticBestMoveScore) {
@@ -89,6 +81,26 @@ public class Connect4ComputerPlayer implements Player {
         return copy;
     }
 
+    public static int getStaticBestMoveColumn() {
+        return staticBestMoveColumn;
+    }
+
+    public static void setStaticBestMoveColumn(int staticBestMoveColumn) {
+        Connect4ComputerPlayer.staticBestMoveColumn = staticBestMoveColumn;
+    }
+
+    public static int getMaxDepth() {
+        return maxDepth;
+    }
+
+    public static void setMaxDepth(int maxDepth) {
+        Connect4ComputerPlayer.maxDepth = maxDepth;
+    }
+
+    public static double getBestMoveScore() {
+        return staticBestMoveScore;
+    }
+
     /**
      * This is a basic implementation of the Negamax algorithm https://en.wikipedia.org/wiki/Negamax with alpha beta pruning. This algorithm
      * first looks for a potential move that will win the game for either the computer or the opponent and then makes a play in that column.
@@ -100,22 +112,26 @@ public class Connect4ComputerPlayer implements Player {
     @Override
     public int makeMove(String[][] originalGameBoard) {
         double score;
-        for (int iter = 0; iter < originalGameBoard[0].length; iter++) {
-            String[][] copy = copyGameBoard(originalGameBoard);
-            if (this.isWinningMove(copy, this.marker, columnExplorationOrder[iter]) ||
-                    this.isWinningMove(copy, otherMarker(this.marker), columnExplorationOrder[iter])) {
-                setStaticBestMoveColumn(columnExplorationOrder[iter]);
-                break;
-            }
+        try {
+            for (int iter = 0; iter < originalGameBoard[0].length; iter++) {
+                String[][] copy = copyGameBoard(originalGameBoard);
+                if (this.isWinningMove(copy, this.marker, columnExplorationOrder[iter]) ||
+                        this.isWinningMove(copy, otherMarker(this.marker), columnExplorationOrder[iter])) {
+                    setStaticBestMoveColumn(columnExplorationOrder[iter]);
+                    break;
+                }
 
-            Connect4.insertToken(copy, marker, columnExplorationOrder[iter]);
-            score = negamax(copy, this.getMarker(), 0, -Integer.MAX_VALUE, Integer.MAX_VALUE);
-            setStaticstaticBestMoveScore(Math.max(staticBestMoveScore, score));
-            setStaticBestMoveColumn((staticBestMoveScore == score) ? columnExplorationOrder[iter] : staticBestMoveColumn);
+                Connect4.insertToken(copy, marker, columnExplorationOrder[iter]);
+                score = negamax(copy, this.getMarker(), 0, -Integer.MAX_VALUE, Integer.MAX_VALUE);
+                setStaticstaticBestMoveScore(Math.max(staticBestMoveScore, score));
+                setStaticBestMoveColumn((staticBestMoveScore == score) ? columnExplorationOrder[iter] : staticBestMoveColumn);
+            }
+            Connect4.insertToken(originalGameBoard, getMarker(), staticBestMoveColumn);
+            setStaticstaticBestMoveScore(Double.NEGATIVE_INFINITY);
+            return staticBestMoveColumn;
+        } catch (NullPointerException e) {
+            throw new IllegalStateException("The cells of the game board are null or empty... initializing board.");
         }
-        Connect4.insertToken(originalGameBoard, getMarker(), staticBestMoveColumn);
-        setStaticstaticBestMoveScore(Double.NEGATIVE_INFINITY);
-        return staticBestMoveColumn;
     }
 
     private boolean isWinningMove(String[][] gameBoardCopy, String marker, int col) {

@@ -1,4 +1,4 @@
-package UI;
+package main.Core;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -9,23 +9,21 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Core.Connect4;
-import Core.GameBoard;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
-import static UI.Connect4ServerConstants.CONTINUE;
-import static UI.Connect4ServerConstants.DRAW;
-import static UI.Connect4ServerConstants.LOCALHOST;
-import static UI.Connect4ServerConstants.PLAYER_1;
-import static UI.Connect4ServerConstants.PLAYER_1_TOKEN;
-import static UI.Connect4ServerConstants.PLAYER_1_WON;
-import static UI.Connect4ServerConstants.PLAYER_2;
-import static UI.Connect4ServerConstants.PLAYER_2_TOKEN;
-import static UI.Connect4ServerConstants.PLAYER_2_WON;
+import static main.Core.Connect4ServerConstants.CONTINUE;
+import static main.Core.Connect4ServerConstants.DRAW;
+import static main.Core.Connect4ServerConstants.LOCALHOST;
+import static main.Core.Connect4ServerConstants.PLAYER_1;
+import static main.Core.Connect4ServerConstants.PLAYER_1_TOKEN;
+import static main.Core.Connect4ServerConstants.PLAYER_1_WON;
+import static main.Core.Connect4ServerConstants.PLAYER_2;
+import static main.Core.Connect4ServerConstants.PLAYER_2_TOKEN;
+import static main.Core.Connect4ServerConstants.PLAYER_2_WON;
 
 /**
  * Connect4Server allows two players to play against each other remotely, though at the moment only on the same computer.

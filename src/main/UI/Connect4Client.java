@@ -1,4 +1,4 @@
-package UI;
+package main.UI;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -7,7 +7,6 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Core.Connect4;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -17,17 +16,18 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import main.Core.Connect4;
 
-import static UI.Connect4ServerConstants.CONTINUE;
-import static UI.Connect4ServerConstants.DRAW;
-import static UI.Connect4ServerConstants.HOST;
-import static UI.Connect4ServerConstants.LOCALHOST;
-import static UI.Connect4ServerConstants.PLAYER_1;
-import static UI.Connect4ServerConstants.PLAYER_1_TOKEN;
-import static UI.Connect4ServerConstants.PLAYER_1_WON;
-import static UI.Connect4ServerConstants.PLAYER_2;
-import static UI.Connect4ServerConstants.PLAYER_2_TOKEN;
-import static UI.Connect4ServerConstants.PLAYER_2_WON;
+import static main.Core.Connect4ServerConstants.CONTINUE;
+import static main.Core.Connect4ServerConstants.DRAW;
+import static main.Core.Connect4ServerConstants.HOST;
+import static main.Core.Connect4ServerConstants.LOCALHOST;
+import static main.Core.Connect4ServerConstants.PLAYER_1;
+import static main.Core.Connect4ServerConstants.PLAYER_1_TOKEN;
+import static main.Core.Connect4ServerConstants.PLAYER_1_WON;
+import static main.Core.Connect4ServerConstants.PLAYER_2;
+import static main.Core.Connect4ServerConstants.PLAYER_2_TOKEN;
+import static main.Core.Connect4ServerConstants.PLAYER_2_WON;
 
 /**
  * Connect4Client is a client application for the network distributed version of Connect 4. There will be exactly two instances of this

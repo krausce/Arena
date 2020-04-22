@@ -4,6 +4,7 @@ module Arena {
     requires javafx.graphics;
     requires java.base;
     requires java.logging;
+    requires org.junit.jupiter.api;
 
-    opens UI;
+    opens main.UI;
 }

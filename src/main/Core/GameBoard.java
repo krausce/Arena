@@ -1,4 +1,4 @@
-package Core;
+package main.Core;
 
 public class GameBoard {
 
@@ -31,7 +31,7 @@ public class GameBoard {
      * @param columnSelection int representing the column to validate
      * @return true if the column was not already filled, false otherwise indicating the token was not placed
      */
-    protected static boolean dropMarker(String[][] board, String marker, int columnSelection) {
+    public static boolean dropMarker(String[][] board, String marker, int columnSelection) {
         for (int row = 0; row < Connect4.ROWS; row++) {
             if (board[row][columnSelection].equals(" ")) {
                 board[row][columnSelection] = marker;

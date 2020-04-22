@@ -1,9 +1,8 @@
-package UI;
+package main.UI;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-import Core.Connect4ComputerPlayer;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -21,12 +20,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.Core.Connect4ComputerPlayer;
 
 class StartMenu {
     private static final String TITLE = "Connect 4 Start Menu";
     private static final String INSTRUCTIONS = "Select which game modes you prefer.";
     private static final String PWD = "user.dir";
-    private static final String STYLE = System.getProperty(PWD) + "src\\style\\Connect4GUI.css";
+    private static final String STYLE = System.getProperty(PWD) + "src\\main.style\\Connect4GUI.css";
     private static int maxDepth;
 
     /**

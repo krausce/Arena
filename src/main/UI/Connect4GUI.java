@@ -1,13 +1,10 @@
-package UI;
+package main.UI;
 
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import Core.Connect4;
-import Core.HumanPlayer;
-import Core.Player;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
@@ -15,6 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import main.Core.Connect4;
+import main.Core.HumanPlayer;
+import main.Core.Player;
 
 public class Connect4GUI extends Application implements Connect4GuiInterface {
 

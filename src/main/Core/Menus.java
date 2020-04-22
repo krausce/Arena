@@ -1,4 +1,4 @@
-package Core;
+package main.Core;
 
 import static java.lang.System.out;
 

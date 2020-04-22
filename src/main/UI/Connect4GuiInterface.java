@@ -1,10 +1,9 @@
-package UI;
+package main.UI;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import Core.Connect4;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,6 +23,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.Core.Connect4;
 
 public interface Connect4GuiInterface {
 
