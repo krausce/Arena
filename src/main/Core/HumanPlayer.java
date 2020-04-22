@@ -43,10 +43,6 @@ public class HumanPlayer implements Player {
         this("Default Name", token);
     }
 
-    public static boolean makeMove(String[][] gameBoard, String marker, int move) {
-        return Connect4.insertToken(gameBoard, marker, move);
-    }
-
     public Connect4GuiInterface.Token getToken() {
         return token;
     }
@@ -88,6 +84,10 @@ public class HumanPlayer implements Player {
     @Override
     public void incrementNumberOfMovesMade() {
         this.numberOfMovesMade++;
+    }
+
+    public static boolean makeMove(String[][] gameBoard, String marker, int move) {
+        return Connect4.insertToken(gameBoard, marker, move);
     }
 
     /**
