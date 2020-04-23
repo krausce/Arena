@@ -4,6 +4,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal">
     <stylesheets>
-        <String fx:value="/main/style/Connect4GUI.css"/>
+        <String fx:value="/Connect4GUI.css"/>
     </stylesheets>
 </BorderPane>

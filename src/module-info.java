@@ -8,5 +8,4 @@ module Arena {
 
     opens main.UI;
     opens main.Core;
-    opens main.style;
 }

@@ -25,9 +25,10 @@ import main.Core.Connect4ComputerPlayer;
 class StartMenu {
     private static final String TITLE = "Connect 4 Start Menu";
     private static final String INSTRUCTIONS = "Select which game modes you prefer.";
-    private static final String PWD = "user.dir";
-    private static final String STYLE = System.getProperty(PWD) + "src\\main.style\\Connect4GUI.css";
+    private static final String PWD = (System.getProperty("os.name").toLowerCase().contains("windows")) ? "user.dir" : "pwd";
     private static int maxDepth;
+
+    private StartMenu() {/**/}
 
     /**
      * Builds the entire opening menu and displays game options to the user.
@@ -223,7 +224,6 @@ class StartMenu {
 
         Scene mainMenuWindow = new Scene(mainMenuLayout);
         mainMenuLayout.getStylesheets().clear();
-//            mainMenuLayout.getStylesheets().add(STYLE);
         startMenu.setScene(mainMenuWindow);
         startMenu.showAndWait();
     }
