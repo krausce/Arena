@@ -86,9 +86,9 @@ public class Connect4Server extends Application {
     }
 
     /**
-     * SessionHandler is an inner class that holds all of the game play logical functionality required to play Connect 4.
+     * SessionHandler is an inner class that holds all of the game play logic functionality required to play Connect 4.
      */
-    private static class SessionHandler implements Runnable {
+    public static class SessionHandler implements Runnable {
         private static final Logger SESSION_LOGGER = Logger.getLogger(SessionHandler.class.getName());
         private final String[][] serverGameBoard = GameBoard.connect4Board;
         private final DataInputStream[] fromPlayers = new DataInputStream[2];

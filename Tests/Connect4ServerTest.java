@@ -1,23 +1,18 @@
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import main.Core.Connect4Server;
 import main.UI.Connect4Client;
 
 class Connect4ServerTest {
 
-    private static Connect4Server testServer;
+    private Connect4Server testServer;
 
-    @BeforeAll
-    static void setUp() {
+    @BeforeEach
+    void setUp() {
         testServer = new Connect4Server();
-    }
-
-    @AfterAll
-    static void tearDown() {
-        System.exit(0);
     }
 
     @Test
@@ -26,6 +21,7 @@ class Connect4ServerTest {
             @Override
             public void run() {
                 Connect4Server.main(null);
+                Platform.exit();
             }
         }).start();
     }
@@ -36,6 +32,7 @@ class Connect4ServerTest {
             @Override
             public void run() {
                 testServer.start(new Stage());
+                Platform.exit();
             }
         }).start();
 

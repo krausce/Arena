@@ -105,12 +105,12 @@ public class Connect4 {
 
         switch (gameMode) {
             case 1:
-                player1 = new HumanPlayer(this.getPlayerName("Player 1"), randomlyAssignMarker(), in);
-                player2 = new HumanPlayer(this.getPlayerName("Player 2"), (player1.getMarker().equals("X")) ? "O" : "X", in);
+                player1 = new Connect4HumanPlayer(this.getPlayerName("Player 1"), randomlyAssignMarker(), in);
+                player2 = new Connect4HumanPlayer(this.getPlayerName("Player 2"), (player1.getMarker().equals("X")) ? "O" : "X", in);
                 break;
             case 2:
                 player2 = new Connect4ComputerPlayer((randomlyAssignMarker()), selectMaxDepth());
-                player1 = new HumanPlayer(this.getPlayerName("Player 1"), (player2.getMarker().equals("X")) ? "O" : "X", in);
+                player1 = new Connect4HumanPlayer(this.getPlayerName("Player 1"), (player2.getMarker().equals("X")) ? "O" : "X", in);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid game mode entry.");

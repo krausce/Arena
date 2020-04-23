@@ -9,7 +9,7 @@ import static java.lang.System.out;
 /**
  * Player serves as the base class for two opponents in a game of Connect 4.
  */
-public class HumanPlayer implements Player {
+public class Connect4HumanPlayer implements Player {
 
     private final String marker;
     private final Scanner in;
@@ -17,7 +17,7 @@ public class HumanPlayer implements Player {
     private String name;
     private Connect4GuiInterface.Token token;
 
-    public HumanPlayer() {
+    public Connect4HumanPlayer() {
         marker = "X";
         in = null;
     }
@@ -27,19 +27,19 @@ public class HumanPlayer implements Player {
      * @param marker of type String which represents which piece marker represents the player on the game board
      * @param in     Scanner object to retrieve user input with
      */
-    public HumanPlayer(String name, String marker, Scanner in) {
+    public Connect4HumanPlayer(String name, String marker, Scanner in) {
         this.name = name;
         this.marker = marker;
         this.numberOfMovesMade = 0;
         this.in = in;
     }
 
-    public HumanPlayer(String name, Connect4GuiInterface.Token token) {
+    public Connect4HumanPlayer(String name, Connect4GuiInterface.Token token) {
         this(name, (token.red) ? "X" : "O", null);
         this.token = token;
     }
 
-    public HumanPlayer(Connect4GuiInterface.Token token) {
+    public Connect4HumanPlayer(Connect4GuiInterface.Token token) {
         this("Default Name", token);
     }
 

@@ -1,5 +1,5 @@
+import main.Core.Connect4HumanPlayer;
 import main.Core.Connect4;
-import main.Core.HumanPlayer;
 import main.UI.Connect4GuiInterface;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -112,8 +112,8 @@ class Connect4Test {
         assertNull(game.getCurrentPlayer());
         assertThrows(NullPointerException.class, () -> game.makeMove());
         Connect4.initializeBoard(game.getGameBoard());
-        game.setPlayer1(new HumanPlayer("TestHumanPlayer", new Connect4GuiInterface.Token(true)));
-        game.setPlayer2(new HumanPlayer("TestHumanPlayer", new Connect4GuiInterface.Token(true)));
+        game.setPlayer1(new Connect4HumanPlayer("TestHumanPlayer", new Connect4GuiInterface.Token(true)));
+        game.setPlayer2(new Connect4HumanPlayer("TestHumanPlayer", new Connect4GuiInterface.Token(true)));
         game.setCurrentPlayer(game.randomlySelectFirstPlayer());
         assertNotNull(game.getPlayer1());
         assertNotNull(game.getPlayer2());

@@ -1,8 +1,8 @@
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import main.Core.Connect4HumanPlayer;
 import main.Core.Connect4;
-import main.Core.HumanPlayer;
 import main.UI.Connect4GuiInterface;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,14 +10,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class HumanPlayerTest {
+class Connect4HumanPlayerTest {
     private static final String MARKER = "X";
     private static final String NAME = "test";
-    private static HumanPlayer testPlayer;
+    private static Connect4HumanPlayer testPlayer;
 
     @BeforeAll
     static void setup() {
-        testPlayer = new HumanPlayer();
+        testPlayer = new Connect4HumanPlayer();
     }
 
     @Test
@@ -50,6 +50,6 @@ class HumanPlayerTest {
     void makeMove() {
         final String[][] testBoard = new String[6][7];
         Connect4.initializeBoard(testBoard);
-        assertTrue(HumanPlayer.makeMove(testBoard, testPlayer.getMarker(), 0));
+        assertTrue(Connect4HumanPlayer.makeMove(testBoard, testPlayer.getMarker(), 0));
     }
 }

@@ -12,19 +12,19 @@ import javafx.scene.Scene;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import main.Core.Connect4HumanPlayer;
 import main.Core.Connect4;
-import main.Core.HumanPlayer;
 import main.Core.Player;
 
 public class Connect4GUI extends Application implements Connect4GuiInterface {
 
-    static final Player playerX = new HumanPlayer(new Token(true));
+    static final Player playerX = new Connect4HumanPlayer(new Token(true));
     private static final boolean SHOW_CONNECT4_MAIN_MENU = false;
     static boolean quitGame = false;
     static boolean isRedMove = true;
     static boolean humanVsComputer = true;
     static boolean consoleGame;
-    static Player playerO = new HumanPlayer(new Token(false));
+    static Player playerO = new Connect4HumanPlayer(new Token(false));
     private static int numberOfMovesMade = 0;
     private static Player currentPlayer = playerX;
     protected Stage mainStage;
@@ -104,7 +104,7 @@ public class Connect4GUI extends Application implements Connect4GuiInterface {
 
     @Override
     public void mouseClickHandler(int column) {
-        if (currentPlayer instanceof HumanPlayer && humanVsComputer) {
+        if (currentPlayer instanceof Connect4HumanPlayer && humanVsComputer) {
             placeToken(new Token(currentPlayer.getToken().red), column);
             Connect4.insertToken(mockGameBoard, currentPlayer.getMarker(), column);
             switchPlayers();
