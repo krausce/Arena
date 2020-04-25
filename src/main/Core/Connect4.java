@@ -1,6 +1,5 @@
 package main.Core;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import static java.lang.System.out;
@@ -27,14 +26,36 @@ public class Connect4 {
         GameBoard.initializeBoard();
 
         while (player1 == null || player2 == null) {
-            try {
-                this.startGame();
-            } catch (IllegalArgumentException | InputMismatchException e) {
-                Menus.displayMessage("Invalid game option selected, please try again.");
-                in.nextLine();
-                this.startGame();
-            }
+            this.startGame();
         }
+    }
+
+    /**
+     * Displays the current board state to the players
+     *
+     * @param originalGameBoard current game state to be displayed
+     */
+    public static void displayBoard(String[][] originalGameBoard) {
+        Menus.displayMessage(makeConnect4Board(originalGameBoard));
+    }
+
+    public static String makeConnect4Board(String[][] originalGameBoard) {
+        StringBuilder displayBoard = new StringBuilder();
+        displayBoard.append("\n*************************\n");
+        displayBoard.append("*  1  2  3  4  5  6  7  *\n");
+        displayBoard.append("*************************\n");
+
+        for (int r = ROWS - 1; r >= 0; r--) {
+            for (int c = 0; c < COLUMNS; c++) {
+                if (c == 0) {
+                    displayBoard.append("  ");
+                }
+                displayBoard.append("| ").append(originalGameBoard[r][c]);
+            }
+            displayBoard.append("|\n");
+        }
+
+        return displayBoard.toString();
     }
 
     public static void initializeBoard(String[][] emptyBoard) {
@@ -45,28 +66,12 @@ public class Connect4 {
         return (columnSelection >= 0 && columnSelection < COLUMNS) && GameBoard.dropMarker(board, token, columnSelection);
     }
 
-    /**
-     * Displays the current board state to the players
-     *
-     * @param originalGameBoard current game state to be displayed
-     */
-    public static void displayBoard(String[][] originalGameBoard) {
-        StringBuilder displayedBoard = new StringBuilder();
-        displayedBoard.append("\n*************************\n");
-        displayedBoard.append("*  1  2  3  4  5  6  7  *\n");
-        displayedBoard.append("*************************\n");
+    public int getGameMode() {
+        return gameMode;
+    }
 
-        for (int r = ROWS - 1; r >= 0; r--) {
-            for (int c = 0; c < COLUMNS; c++) {
-                if (c == 0) {
-                    displayedBoard.append("  ");
-                }
-                displayedBoard.append("| ").append(originalGameBoard[r][c]);
-            }
-            displayedBoard.append("|\n");
-        }
-
-        Menus.displayMessage(displayedBoard.toString());
+    public Scanner getScanner() {
+        return in;
     }
 
     public static boolean won(String[][] gameBoard, String marker) {
@@ -81,7 +86,6 @@ public class Connect4 {
                     return false;
                 }
             }
-
             return true;
         } catch (NullPointerException e) {
             return false;
@@ -95,6 +99,7 @@ public class Connect4 {
                 gameMode = in.nextInt();
             } else {
                 Menus.displayMessage("Invalid entry. Please try again.");
+                in.nextLine();
             }
         } while (gameMode < 1 || gameMode > 2);
         this.initializePlayers(gameMode);
@@ -103,17 +108,12 @@ public class Connect4 {
 
     private void initializePlayers(int gameMode) {
 
-        switch (gameMode) {
-            case 1:
-                player1 = new Connect4HumanPlayer(this.getPlayerName("Player 1"), randomlyAssignMarker(), in);
-                player2 = new Connect4HumanPlayer(this.getPlayerName("Player 2"), (player1.getMarker().equals("X")) ? "O" : "X", in);
-                break;
-            case 2:
-                player2 = new Connect4ComputerPlayer((randomlyAssignMarker()), selectMaxDepth());
-                player1 = new Connect4HumanPlayer(this.getPlayerName("Player 1"), (player2.getMarker().equals("X")) ? "O" : "X", in);
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid game mode entry.");
+        if (gameMode == 1) {
+            player1 = new Connect4HumanPlayer(this.getPlayerName("Player 1"), randomlyAssignMarker(), in);
+            player2 = new Connect4HumanPlayer(this.getPlayerName("Player 2"), (player1.getMarker().equals("X")) ? "O" : "X", in);
+        } else {
+            player2 = new Connect4ComputerPlayer((randomlyAssignMarker()), selectMaxDepth());
+            player1 = new Connect4HumanPlayer(this.getPlayerName("Player 1"), (player2.getMarker().equals("X")) ? "O" : "X", in);
         }
     }
 
@@ -140,12 +140,13 @@ public class Connect4 {
                 difficultyLevel = in.nextInt();
             } else {
                 Menus.displayMessage("Invalid input, please try again.");
-                in.next();
+                in.nextLine();
                 continue;
             }
 
             if (difficultyLevel < 1 || difficultyLevel > 2) {
                 Menus.displayMessage("Invalid game option selected, please try again.");
+                in.nextLine();
             }
         } while (!(difficultyLevel == 1 || difficultyLevel == 2));
 
@@ -158,12 +159,7 @@ public class Connect4 {
     }
 
     public void makeMove() {
-        try {
-            currentPlayer.makeMove(this.getGameBoard());
-        } catch (IllegalArgumentException e) {
-            initializeBoard(gameBoard);
-            makeMove();
-        }
+        currentPlayer.makeMove(this.getGameBoard());
     }
 
     /**

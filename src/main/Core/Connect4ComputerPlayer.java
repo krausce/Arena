@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.UI.Connect4GuiInterface;
+import main.UI.Connect4GuiInterface.Token;
 
 import static java.lang.System.arraycopy;
 
@@ -44,7 +45,7 @@ public class Connect4ComputerPlayer implements Player {
         setMaxDepth(maxDepth);
     }
 
-    public static void setStaticstaticBestMoveScore(double staticBestMoveScore) {
+    public static void setStaticBestMoveScore(double staticBestMoveScore) {
         Connect4ComputerPlayer.staticBestMoveScore = staticBestMoveScore;
     }
 
@@ -123,11 +124,11 @@ public class Connect4ComputerPlayer implements Player {
 
                 Connect4.insertToken(copy, marker, columnExplorationOrder[iter]);
                 score = negamax(copy, this.getMarker(), 0, -Integer.MAX_VALUE, Integer.MAX_VALUE);
-                setStaticstaticBestMoveScore(Math.max(staticBestMoveScore, score));
+                setStaticBestMoveScore(Math.max(staticBestMoveScore, score));
                 setStaticBestMoveColumn((staticBestMoveScore == score) ? columnExplorationOrder[iter] : staticBestMoveColumn);
             }
             Connect4.insertToken(originalGameBoard, getMarker(), staticBestMoveColumn);
-            setStaticstaticBestMoveScore(Double.NEGATIVE_INFINITY);
+            setStaticBestMoveScore(Double.NEGATIVE_INFINITY);
             return staticBestMoveColumn;
         } catch (NullPointerException e) {
             throw new IllegalStateException("The cells of the game board are null or empty... initializing board.");
@@ -135,6 +136,9 @@ public class Connect4ComputerPlayer implements Player {
     }
 
     private boolean isWinningMove(String[][] gameBoardCopy, String marker, int col) {
+        if (col > gameBoardCopy[0].length || col < 0) {
+            return false;
+        }
         Connect4.insertToken(gameBoardCopy, marker, col);
         boolean won = Connect4.won(gameBoardCopy, marker);
         this.undoMove(gameBoardCopy, col);
@@ -183,13 +187,17 @@ public class Connect4ComputerPlayer implements Player {
         return marker;
     }
 
+    public int getNumberOfMovesMade() {
+        return numberOfMovesMade;
+    }
+
     @Override
     public void incrementNumberOfMovesMade() {
         this.numberOfMovesMade++;
     }
 
     @Override
-    public Connect4GuiInterface.Token getToken() {
+    public Token getToken() {
         return this.token;
     }
 
@@ -206,6 +214,5 @@ public class Connect4ComputerPlayer implements Player {
      * Robot Player has a constant name ROBOT_NAME
      * */
     @Override
-    public void setName(String text) {
-    }
+    public void setName(String text) { /* Robot Player NAME is Constant */ }
 }

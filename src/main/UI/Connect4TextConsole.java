@@ -56,7 +56,7 @@ public class Connect4TextConsole {
             if (in.hasNextInt()) {
                 gameMode = in.nextInt();
             } else {
-                Menus.displayMessage("Invalide entry, please try again.");
+                Menus.displayMessage("Invalid entry, please try again.");
                 continue;
             }
             if (gameMode < 1 || gameMode > 2) {

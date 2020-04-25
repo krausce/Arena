@@ -3,6 +3,7 @@ package main.Core;
 import java.util.Scanner;
 
 import main.UI.Connect4GuiInterface;
+import main.UI.Connect4GuiInterface.Token;
 
 import static java.lang.System.out;
 
@@ -15,7 +16,7 @@ public class Connect4HumanPlayer implements Player {
     private final Scanner in;
     protected int numberOfMovesMade;
     private String name;
-    private Connect4GuiInterface.Token token;
+    private Token token;
 
     public Connect4HumanPlayer() {
         marker = "X";
@@ -39,7 +40,7 @@ public class Connect4HumanPlayer implements Player {
         this.token = token;
     }
 
-    public Connect4HumanPlayer(Connect4GuiInterface.Token token) {
+    public Connect4HumanPlayer(Token token) {
         this("Default Name", token);
     }
 
@@ -86,6 +87,10 @@ public class Connect4HumanPlayer implements Player {
         this.numberOfMovesMade++;
     }
 
+    public int getNumberOfMovesMade() {
+        return numberOfMovesMade;
+    }
+
     public static boolean makeMove(String[][] gameBoard, String marker, int move) {
         return Connect4.insertToken(gameBoard, marker, move);
     }
@@ -113,7 +118,9 @@ public class Connect4HumanPlayer implements Player {
             }
         } catch (Exception e) {
             out.println("Invalid column selection, please try again.");
-            in.nextLine();
+            if (in != null) {
+                in.nextLine();
+            }
             this.makeMove(originalGameBoard);
         }
 
