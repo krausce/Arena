@@ -1,6 +1,5 @@
 package main.UI;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import main.Core.Connect4;
@@ -18,20 +17,12 @@ public class Connect4TextConsole {
     private static final Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) {
-        if (args.length == 0) {
-            if (getGameMode(in)) {
-                exit(0);
-            }
+        if (args.length == 0 && getGameMode(in)) {
+            exit(0);
         }
 
         boolean won;
-        Connect4 game = null;
-        try {
-            game = new Connect4(in);
-        } catch (InputMismatchException | IllegalArgumentException e) {
-            out.println("Invalid game option selection. Exiting...");
-            exit(-1);
-        }
+        Connect4 game = new Connect4(in);
         do {
             game.nextPlayer();
             game.makeMove();
@@ -57,10 +48,12 @@ public class Connect4TextConsole {
                 gameMode = in.nextInt();
             } else {
                 Menus.displayMessage("Invalid entry, please try again.");
+                in.nextLine();
                 continue;
             }
             if (gameMode < 1 || gameMode > 2) {
                 Menus.displayMessage("Invalid game mode entry, please try again.");
+                in.nextLine();
             }
         } while (gameMode < 1 || gameMode > 2);
 

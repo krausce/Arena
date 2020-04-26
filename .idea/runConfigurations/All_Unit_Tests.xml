@@ -6,17 +6,7 @@
         <option name="ENABLED" value="true" />
       </pattern>
       <pattern>
-        <option name="PATTERN" value="main.style.*" />
-        <option name="ENABLED" value="true" />
-        <option name="INCLUDE" value="false" />
-      </pattern>
-      <pattern>
-        <option name="PATTERN" value="main.UI.*" />
-        <option name="ENABLED" value="true" />
-        <option name="INCLUDE" value="false" />
-      </pattern>
-      <pattern>
-        <option name="PATTERN" value=".*" />
+        <option name="PATTERN" value="main.UI.Connect4TextConsole" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

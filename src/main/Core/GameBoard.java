@@ -95,7 +95,7 @@ public class GameBoard {
      * @return true if diagonal (Left - Right and Up or Left - Right and Down) win condition exists, false otherwise
      */
     protected static boolean diagonalCheck(String[][] board, String token) {
-        //check for win diagonally (upper left to lower right)
+        //check for win diagonally (lower left to upper right)
         for (int row = 0; row < Connect4.ROWS - 3; row++) { //0 to 2
             for (int col = 0; col < Connect4.COLUMNS - 3; col++) { //0 to 3
                 if (board[row][col].equals(token) && board[row][col].equals(board[row + 1][col + 1]) &&
@@ -106,7 +106,7 @@ public class GameBoard {
             }
         }
 
-        //check for win diagonally (lower left to upper right)
+        //check for win diagonally (upper left to lower right)
         for (int row = 3; row < Connect4.ROWS; row++) { //3 to 5
             for (int col = 0; col < Connect4.COLUMNS - 3; col++) { //0 to 3
                 if (board[row][col].equals(token) && board[row][col].equals(board[row - 1][col + 1]) &&

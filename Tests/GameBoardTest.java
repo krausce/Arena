@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Test;
 import main.Core.Connect4;
 import main.Core.GameBoard;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,6 +18,18 @@ class GameBoardTest {
     @BeforeEach
     void setup() {
         testBoard = new String[6][7];
+    }
+
+    @Test
+    void GameBoard() {
+        GameBoard test = new GameBoard();
+        assertNotNull(test);
+        assertEquals(" ", GameBoard.connect4Board[0][0]);
+
+        for (int i = 0; i < GameBoard.connect4Board.length; i++) {
+            GameBoard.connect4Board[i][0] = "X";
+        }
+        assertFalse(GameBoard.dropMarker(GameBoard.connect4Board, "X", 0));
     }
 
     @Test
@@ -55,6 +69,7 @@ class GameBoardTest {
         assertTrue(Connect4.won(testBoard, "X"));
 
         // Diagonal L -> R and up
+        col = 0;
         Connect4.initializeBoard(testBoard);
         Connect4.insertToken(testBoard, "X", col++);
         Connect4.insertToken(testBoard, "O", col);
