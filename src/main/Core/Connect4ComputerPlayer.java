@@ -3,6 +3,7 @@ package main.Core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import main.UI.Connect4GuiInterface;
 import main.UI.Connect4GuiInterface.Token;
@@ -114,22 +115,30 @@ public class Connect4ComputerPlayer implements Player {
     public int makeMove(String[][] originalGameBoard) {
         double score;
         try {
-            for (int iter = 0; iter < originalGameBoard[0].length; iter++) {
-                String[][] copy = copyGameBoard(originalGameBoard);
-                if (this.isWinningMove(copy, this.marker, columnExplorationOrder[iter]) ||
-                        this.isWinningMove(copy, otherMarker(this.marker), columnExplorationOrder[iter])) {
-                    setStaticBestMoveColumn(columnExplorationOrder[iter]);
-                    break;
+            ArrayList<Integer> availableMoves = getAvailableMoves(originalGameBoard);
+            for (int iter = 0; iter < columnExplorationOrder.length; iter++) {
+                if (availableMoves.contains(columnExplorationOrder[iter])) {
+                    String[][] copy = copyGameBoard(originalGameBoard);
+                    if (isWinningMove(copy, this.marker, columnExplorationOrder[iter]) || isWinningMove(copy, otherMarker(this.marker),
+                            columnExplorationOrder[iter])) {
+                        setStaticBestMoveColumn(columnExplorationOrder[iter]);
+                        break;
+                    }
+                    Connect4.insertToken(copy, this.marker, columnExplorationOrder[iter]);
+                    score = negamax(copy, this.marker, 0, -Integer.MAX_VALUE, Integer.MAX_VALUE);
+                    setStaticBestMoveScore(Math.max(staticBestMoveScore, score));
+                    setStaticBestMoveColumn((staticBestMoveScore == score) ? columnExplorationOrder[iter] : staticBestMoveColumn);
                 }
-
-                Connect4.insertToken(copy, marker, columnExplorationOrder[iter]);
-                score = negamax(copy, this.getMarker(), 0, -Integer.MAX_VALUE, Integer.MAX_VALUE);
-                setStaticBestMoveScore(Math.max(staticBestMoveScore, score));
-                setStaticBestMoveColumn((staticBestMoveScore == score) ? columnExplorationOrder[iter] : staticBestMoveColumn);
             }
-            Connect4.insertToken(originalGameBoard, getMarker(), staticBestMoveColumn);
+            if (!Connect4.insertToken(originalGameBoard, this.marker, staticBestMoveColumn)) {
+                setStaticBestMoveColumn(availableMoves.get((new Random()).nextInt(availableMoves.size())));
+                Connect4.insertToken(originalGameBoard, this.marker, staticBestMoveColumn);
+            }
+
             setStaticBestMoveScore(Double.NEGATIVE_INFINITY);
-            return staticBestMoveColumn;
+            int bestMove = staticBestMoveColumn;
+            setStaticBestMoveColumn(-1);
+            return bestMove;
         } catch (NullPointerException e) {
             throw new IllegalStateException("The cells of the game board are null or empty... initializing board.");
         }
@@ -160,12 +169,17 @@ public class Connect4ComputerPlayer implements Player {
             return evaluteTestGameState(copyOfGameBoard, depth);
         }
         List<Integer> possibleMoves = getAvailableMoves(copyOfGameBoard);
-        for (Integer childNode : possibleMoves) {
-            Connect4.insertToken(copyOfGameBoard, marker, columnExplorationOrder[childNode]);
-            score = -negamax(copyGameBoard(copyOfGameBoard), otherMarker(marker), depth + 1, -beta, -alpha);
-            alpha = Math.max(alpha, score);
-            if (alpha >= beta) {
-                break;
+        for (Integer childNode : columnExplorationOrder) {
+            if (possibleMoves.contains(childNode)) {
+                Connect4.insertToken(copyOfGameBoard, marker, childNode);
+                if (Connect4.won(copyOfGameBoard, marker)) {
+                    return evaluteTestGameState(copyOfGameBoard, depth);
+                }
+                score = -negamax(copyGameBoard(copyOfGameBoard), otherMarker(marker), depth + 1, -beta, -alpha);
+                alpha = Math.max(alpha, score);
+                if (alpha >= beta) {
+                    return alpha;
+                }
             }
         }
         return score;
