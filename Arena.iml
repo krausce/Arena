@@ -9,6 +9,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="JavaFX-11" level="application" />
-    <orderEntry type="library" name="JUnit5" level="application" />
+    <orderEntry type="library" name="JUnit-5" level="application" />
   </component>
 </module>

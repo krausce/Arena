@@ -141,13 +141,13 @@ class StartMenu {
         gamePlayMode.setAlignment(Pos.CENTER);
         gamePlayMode.paddingProperty().setValue(new Insets(10.0));
 
-        String guiImagePath = System.getProperty(PWD) + "/img/GUIgameImage.png";
+        String guiImagePath = "img/GUIgameImage.png";
         Image guiImage = new Image(new FileInputStream(guiImagePath));
         Button guiGame = new Button("GUI Based Game");
         guiGame.setDefaultButton(true);
         guiGame.setGraphic(new ImageView(guiImage));
 
-        String consoleImagePath = System.getProperty(PWD) + "/img/ConsoleImage.png";
+        String consoleImagePath = "img/ConsoleImage.png";
         Image consoleImage = new Image(new FileInputStream(consoleImagePath));
         Button consoleGame = new Button("Console Game");
         consoleGame.setGraphic(new ImageView(consoleImage));
@@ -157,13 +157,13 @@ class StartMenu {
         bottomLayout.setPadding(new Insets(15, 12, 15, 12));
         bottomLayout.setStyle("-fx-background-color: #336699;");
 
-        String okButtonPath = System.getProperty(PWD) + "/img/OK.png";
+        String okButtonPath = "img/OK.png";
         Image okButtonImage = new Image(new FileInputStream(okButtonPath));
         Button okButton = new Button("OK");
         okButton.setGraphic(new ImageView(okButtonImage));
 
 
-        String cancelButtonPath = System.getProperty(PWD) + "/img/Shutdown.png";
+        String cancelButtonPath = "img/Shutdown.png";
         Image cancelButtonImage = new Image(new FileInputStream(cancelButtonPath));
         Button cancelButton = new Button("CANCEL / QUIT");
         cancelButton.setGraphic(new ImageView(cancelButtonImage));
