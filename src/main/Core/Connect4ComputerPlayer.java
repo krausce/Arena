@@ -3,6 +3,7 @@ package main.Core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import main.UI.Connect4GuiInterface;
 import main.UI.Connect4GuiInterface.Token;
@@ -118,13 +119,22 @@ public class Connect4ComputerPlayer implements Player {
             for (int iter = 0; iter < columnExplorationOrder.length; iter++) {
                 if (availableMoves.contains(columnExplorationOrder[iter])) {
                     String[][] copy = copyGameBoard(originalGameBoard);
-                    Connect4.insertToken(copy, otherMarker(marker), columnExplorationOrder[iter]);
-                    score = negamax(copy, this.getMarker(), 0, -Integer.MAX_VALUE, Integer.MAX_VALUE);
+                    if (isWinningMove(copy, this.marker, columnExplorationOrder[iter]) || isWinningMove(copy, otherMarker(this.marker),
+                            columnExplorationOrder[iter])) {
+                        setStaticBestMoveColumn(columnExplorationOrder[iter]);
+                        break;
+                    }
+                    Connect4.insertToken(copy, this.marker, columnExplorationOrder[iter]);
+                    score = negamax(copy, this.marker, 0, -Integer.MAX_VALUE, Integer.MAX_VALUE);
                     setStaticBestMoveScore(Math.max(staticBestMoveScore, score));
                     setStaticBestMoveColumn((staticBestMoveScore == score) ? columnExplorationOrder[iter] : staticBestMoveColumn);
                 }
             }
-            Connect4.insertToken(originalGameBoard, getMarker(), staticBestMoveColumn);
+            if (!Connect4.insertToken(originalGameBoard, this.marker, staticBestMoveColumn)) {
+                setStaticBestMoveColumn(availableMoves.get((new Random()).nextInt(availableMoves.size())));
+                Connect4.insertToken(originalGameBoard, this.marker, staticBestMoveColumn);
+            }
+
             setStaticBestMoveScore(Double.NEGATIVE_INFINITY);
             int bestMove = staticBestMoveColumn;
             setStaticBestMoveColumn(-1);
@@ -159,12 +169,17 @@ public class Connect4ComputerPlayer implements Player {
             return evaluteTestGameState(copyOfGameBoard, depth);
         }
         List<Integer> possibleMoves = getAvailableMoves(copyOfGameBoard);
-        for (Integer childNode : possibleMoves) {
-            Connect4.insertToken(copyOfGameBoard, marker, columnExplorationOrder[childNode]);
-            score = -negamax(copyGameBoard(copyOfGameBoard), otherMarker(marker), depth + 1, -beta, -alpha);
-            alpha = Math.max(alpha, score);
-            if (alpha >= beta) {
-                break;
+        for (Integer childNode : columnExplorationOrder) {
+            if (possibleMoves.contains(childNode)) {
+                Connect4.insertToken(copyOfGameBoard, marker, childNode);
+                if (Connect4.won(copyOfGameBoard, marker)) {
+                    return evaluteTestGameState(copyOfGameBoard, depth);
+                }
+                score = -negamax(copyGameBoard(copyOfGameBoard), otherMarker(marker), depth + 1, -beta, -alpha);
+                alpha = Math.max(alpha, score);
+                if (alpha >= beta) {
+                    return alpha;
+                }
             }
         }
         return score;
