@@ -50,6 +50,7 @@ public class Connect4ComputerPlayer implements Player {
         Connect4ComputerPlayer.staticBestMoveScore = staticBestMoveScore;
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static int[] initializeColumnSelectionOrderArray(int numColumns) {
         final int[] temp = new int[numColumns];
         for (int i = 0; i < temp.length; i++) {
@@ -116,18 +117,18 @@ public class Connect4ComputerPlayer implements Player {
         double score;
         try {
             ArrayList<Integer> availableMoves = getAvailableMoves(originalGameBoard);
-            for (int iter = 0; iter < columnExplorationOrder.length; iter++) {
-                if (availableMoves.contains(columnExplorationOrder[iter])) {
+            for (int col : columnExplorationOrder) {
+                if (availableMoves.contains(col)) {
                     String[][] copy = copyGameBoard(originalGameBoard);
-                    if (isWinningMove(copy, this.marker, columnExplorationOrder[iter]) || isWinningMove(copy, otherMarker(this.marker),
-                            columnExplorationOrder[iter])) {
-                        setStaticBestMoveColumn(columnExplorationOrder[iter]);
+                    if (isWinningMove(copy, this.marker, col) || isWinningMove(copy, otherMarker(this.marker),
+                            col)) {
+                        setStaticBestMoveColumn(col);
                         break;
                     }
-                    Connect4.insertToken(copy, this.marker, columnExplorationOrder[iter]);
+                    Connect4.insertToken(copy, this.marker, col);
                     score = negamax(copy, this.marker, 0, -Integer.MAX_VALUE, Integer.MAX_VALUE);
                     setStaticBestMoveScore(Math.max(staticBestMoveScore, score));
-                    setStaticBestMoveColumn((staticBestMoveScore == score) ? columnExplorationOrder[iter] : staticBestMoveColumn);
+                    setStaticBestMoveColumn((staticBestMoveScore == score) ? col : staticBestMoveColumn);
                 }
             }
             if (!Connect4.insertToken(originalGameBoard, this.marker, staticBestMoveColumn)) {
