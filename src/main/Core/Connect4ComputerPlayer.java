@@ -50,7 +50,6 @@ public class Connect4ComputerPlayer implements Player {
         Connect4ComputerPlayer.staticBestMoveScore = staticBestMoveScore;
     }
 
-    @SuppressWarnings("SameParameterValue")
     private static int[] initializeColumnSelectionOrderArray(int numColumns) {
         final int[] temp = new int[numColumns];
         for (int i = 0; i < temp.length; i++) {
@@ -120,8 +119,7 @@ public class Connect4ComputerPlayer implements Player {
             for (int col : columnExplorationOrder) {
                 if (availableMoves.contains(col)) {
                     String[][] copy = copyGameBoard(originalGameBoard);
-                    if (isWinningMove(copy, this.marker, col) || isWinningMove(copy, otherMarker(this.marker),
-                            col)) {
+                    if (isWinningMove(copy, this.marker, col) || isWinningMove(copy, otherMarker(this.marker), col)) {
                         setStaticBestMoveColumn(col);
                         break;
                     }
@@ -166,15 +164,15 @@ public class Connect4ComputerPlayer implements Player {
 
     private double negamax(String[][] copyOfGameBoard, String marker, int depth, double alpha, double beta) {
         double score = 0;
-        if (depth > maxDepth || Connect4.won(copyOfGameBoard, marker)) {
-            return evaluteTestGameState(copyOfGameBoard, depth);
+        if (depth > maxDepth) {
+            return evaluateTestGameState(copyOfGameBoard, depth);
         }
         List<Integer> possibleMoves = getAvailableMoves(copyOfGameBoard);
         for (Integer childNode : columnExplorationOrder) {
             if (possibleMoves.contains(childNode)) {
                 Connect4.insertToken(copyOfGameBoard, marker, childNode);
                 if (Connect4.won(copyOfGameBoard, marker)) {
-                    return evaluteTestGameState(copyOfGameBoard, depth);
+                    return evaluateTestGameState(copyOfGameBoard, depth);
                 }
                 score = -negamax(copyGameBoard(copyOfGameBoard), otherMarker(marker), depth + 1, -beta, -alpha);
                 alpha = Math.max(alpha, score);
@@ -186,7 +184,7 @@ public class Connect4ComputerPlayer implements Player {
         return score;
     }
 
-    private double evaluteTestGameState(String[][] copyGameBoard, int depth) {
+    private double evaluateTestGameState(String[][] copyGameBoard, int depth) {
         double baseScore = 138;
         double overallScore = 0;
         for (int r = 0; r < copyGameBoard.length; r++) {
@@ -195,7 +193,7 @@ public class Connect4ComputerPlayer implements Player {
             }
         }
 
-        return (baseScore + overallScore) * (((maxDepth - depth) > 0) ? (maxDepth - depth) : 1);
+        return (baseScore + overallScore) * (maxDepth - depth);
     }
 
     public String getMarker() {
