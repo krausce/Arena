@@ -21,6 +21,10 @@ public class Connect4 {
         in = null;
     }
 
+    public Connect4() {
+        in = null;
+    }
+
     public Connect4(Scanner in) {
         this.in = in;
         GameBoard.initializeBoard();
@@ -198,11 +202,19 @@ public class Connect4 {
     public Player getPlayer1() {
         return player1;
     }
+<<<<<<< HEAD:src/main/Core/Connect4.java
 
     public void setPlayer1(Player player1) {
         this.player1 = player1;
     }
 
+=======
+
+    public void setPlayer1(Player player1) {
+        this.player1 = player1;
+    }
+
+>>>>>>> 796b2ffc3f06902ba0e96eee4c091d0313fbe3d3:src/Core/Connect4.java
     public Player getPlayer2() {
         return player2;
     }
