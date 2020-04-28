@@ -9,7 +9,7 @@
       2. Multiple Options:
          - Simplest (<em>**IDE**</em>) - 
             * Import the following file(s) / folder(s) into an IDE (e.g Intelli J) project
-                1. You can either clone or download this Application from [Arena Project](https://github.com/krausce/Arena.git)
+                1. You can clone or download this Application from [Arena Project](https://github.com/krausce/Arena.git)
                 
             * <p>Once imported and all dependency related issues have been met, run the build<br/>command for your given IDE for either<br/>"Connect4TextConsole.java" or "Connect4GUI.java"</p>
             - **NOTE:** If you run "Connect4TextConsole.java", initial output will be in your IDE<br/>or CLI window with an option to
